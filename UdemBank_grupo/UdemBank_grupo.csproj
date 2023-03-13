@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="ATM.cs" />
+    <Compile Include="BaseDatos.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="ClientePlatino.cs" />
     <Compile Include="ClienteRegular.cs" />
