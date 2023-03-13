@@ -43,8 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
+    <Compile Include="ATM.cs" />
+    <Compile Include="Cliente.cs" />
+    <Compile Include="ClientePlatino.cs" />
+    <Compile Include="ClienteRegular.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sucursal.cs" />
+    <Compile Include="SucursalVirtual.cs" />
+    <Compile Include="UdemBank.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
