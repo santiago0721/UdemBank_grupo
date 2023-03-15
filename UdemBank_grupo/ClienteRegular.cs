@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace UdemBank_grupo
 {
-    internal class ClienteRegular
+    internal class ClienteRegular:Cliente
     {
+        public ClienteRegular(int id, string contraseña, int balance, int numero_cuenta_) : base(id, contraseña, balance)
+        {
+            cobro = 1.5;
+            numero_cuenta = numero_cuenta_;
+        } 
     }
 }

@@ -8,5 +8,21 @@ namespace UdemBank_grupo
 {
     internal class Usuario
     {
+        int id;
+        string contraseña;
+
+
+        public Usuario(int id, string contraseña) 
+        {
+            this.id = id;
+            this.contraseña = contraseña;
+        }
+
+        public bool iniciar_sesion(int id,string contraseña)
+        {
+            if ((this.id == id) & (this.contraseña == contraseña)) { return true; }
+            else{ return false; }  
+        }
+
     }
 }

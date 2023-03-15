@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace UdemBank_grupo
 {
-    internal class SucursalVirtual
+    internal class SucursalVirtual:Sucursal
     {
+        public override bool disponibilidad_retiro(int valor) { return true;  }
+
+        public override (Sucursal, int) depositar(int valor) { }
+
+        public override (Sucursal, int) retirar(int valor) { }
     }
 }

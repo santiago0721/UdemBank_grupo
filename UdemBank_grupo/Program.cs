@@ -10,6 +10,11 @@ namespace UdemBank_grupo
     {
         static void Main(string[] args)
         {
+
+            var s = new BaseDatos();
+            s.escribir_basedatos(1234, "t12", 3,68,1);
+            //s.actualizar_basedatos(132, "Q1", 3, 68, 0);
+            s.leer_basedatos(1);
         }
     }
 }

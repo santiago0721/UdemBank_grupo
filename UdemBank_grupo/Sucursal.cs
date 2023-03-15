@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace UdemBank_grupo
 {
-    internal class Sucursal
+    internal abstract class Sucursal
     {
+        public abstract bool disponibilidad_retiro(int valor);
+
+        public abstract (Sucursal, int) depositar(int valor);
+
+        public abstract (Sucursal, int) retirar(int valor);
     }
 }
+
