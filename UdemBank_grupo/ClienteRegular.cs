@@ -10,7 +10,7 @@ namespace UdemBank_grupo
     {
         public ClienteRegular(int id, string contraseña, int balance, int numero_cuenta_) : base(id, contraseña, balance)
         {
-            cobro = 1.5;
+            cobro = 0.15;
             numero_cuenta = numero_cuenta_;
         } 
     }

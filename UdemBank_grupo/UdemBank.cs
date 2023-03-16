@@ -11,6 +11,12 @@ namespace UdemBank_grupo
         int balance_general;
         List<ATM> lista_atms;
 
+        public UdemBank(int balance,List<ATM> atms) 
+        {
+            this.balance_general = balance;
+            this.lista_atms = atms;
+        }
+
         public List<ATM> disponibilidad_lista_atms(int valor)
         {
             List<ATM> lista_ = new List<ATM>();

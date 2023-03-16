@@ -7,14 +7,19 @@ using System.Web;
 
 namespace UdemBank_grupo
 {
-    internal class Cliente:Usuario
+    internal class Cliente : Usuario
     {
         protected double cobro;
-        protected int balance;
+        protected double balance;
         protected int numero_cuenta;
-        public Cliente(int id, string contraseña,int balance) : base(id, contraseña) 
+        public Cliente(int id, string contraseña, int balance) : base(id, contraseña)
         {
             this.balance = balance;
+        }
+
+        public int numero_cuenta_()
+        {
+            return numero_cuenta;
         }
 
         public bool verificar_monto_a_retirar(int monto)
@@ -29,7 +34,13 @@ namespace UdemBank_grupo
             }
         }
 
-
+        public void actualizar_datos(int id, string contraseña, int balance, int numero_cuenta_) 
+        {
+            this.id = id;
+            this.contraseña = contraseña; 
+            this.balance = balance;
+            this.numero_cuenta= numero_cuenta_;
+        }
 
     }
 }

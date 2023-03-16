@@ -8,8 +8,8 @@ namespace UdemBank_grupo
 {
     internal class Usuario
     {
-        int id;
-        string contraseña;
+        protected int id;
+        protected string contraseña;
 
 
         public Usuario(int id, string contraseña) 

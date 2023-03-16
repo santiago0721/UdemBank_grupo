@@ -10,16 +10,18 @@ namespace UdemBank_grupo
     internal class Admin:Usuario
     {
         private int numero_cuenta_disponible;
+        private int numero_cuenta_disponible_atm;
 
-        public Admin(int id, string contraseña) : base(id, contraseña)
+        public Admin(int id, string contraseña,int num_cuenta,int num_cuenta_atm ) : base(id, contraseña)
         {
-            numero_cuenta_disponible = 0000000001;
+            numero_cuenta_disponible = num_cuenta;
+            numero_cuenta_disponible_atm= num_cuenta_atm;
         }
 
         public Cliente crear_usuario(int id, string contraseña, int balance, int seleccion)
         {
             Cliente new_client;
-
+            // falta implementar validador de que no exista este usuario 
             switch(seleccion)
             {
                 case 1:
@@ -40,6 +42,28 @@ namespace UdemBank_grupo
                  
             }
         }
+
+        public ATM crear_atm(int balance) 
+        {
+            // validar si ya no existe el id.
+            numero_cuenta_disponible_atm += 1;
+            return new ATM(numero_cuenta_disponible_atm, balance);
+
+        }
+
+        public Cliente actualizar_usuario(int id, string contraseña, int balance, int numero_cuenta,Cliente cliente) 
+        {
+            cliente.actualizar_datos(id,contraseña,balance,numero_cuenta);
+
+            return cliente;
+        }
+
+        public int eliminar_usuario(Cliente usuario)
+        {
+            return usuario.numero_cuenta_();
+            //eliminar usuario en base de datos Falta implementar 
+        }
+
 
        
 

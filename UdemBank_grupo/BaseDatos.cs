@@ -43,7 +43,7 @@ namespace UdemBank_grupo
             {
 
                 Console.WriteLine(lector.GetString(1).ToString());
-                Console.WriteLine(lector.GetInt32(0));
+                Console.WriteLine(lector.GetInt32(3));
 
             }
 
@@ -58,20 +58,9 @@ namespace UdemBank_grupo
             
             string str1 = "INSERT INTO ";
             string str2 = "(id,contraseña,balance,cuenta) VALUES (@id,@contraseña,@balance,@cuenta)";
-            switch(ubicacion_tabla)
-            {
-                case 0:
-                    query = str1 + "ClientesPLatino" + str2;
-                    break;
-                case 1:
-                    query = str1 + "ClientesNormales" + str2;
-                    break;
-                default:
-                    throw new Exception("implementar para cuando el numero sea mayor de 1");
-            }
 
-            
-            
+            query = ubicacion(ubicacion_tabla, str1, str2);
+
             conexion.Open();
             SqlCommand comando = new SqlCommand(query, conexion);
             comando.Parameters.AddWithValue("@id", id);
@@ -111,6 +100,59 @@ namespace UdemBank_grupo
             comando.ExecuteNonQuery();
             conexion.Close();
 
+        }
+        
+        public void buscar(int cuenta,int ubicacion_tabla)
+        {
+    
+            string str1 = "SELECT * FROM ";
+            string str2 = " WHERE cuenta LIKE '%" + cuenta.ToString() + "%'";
+
+            query = ubicacion(ubicacion_tabla, str1, str2);
+
+            conexion.Open();
+            SqlCommand comando = new SqlCommand(query,conexion);
+            SqlDataReader lector = comando.ExecuteReader(); 
+            
+            if (lector.Read()) 
+            {
+                Console.WriteLine(lector.GetString(1).ToString());
+            }
+            else { Console.WriteLine("poner false"); }
+       
+            conexion.Close();
+
+        }
+
+        public void eliminar(int cuenta, int ubicacion_tabla)
+        {
+            string str1 = "DELETE FROM ";
+            string str2 = " WHERE cuenta = " + cuenta.ToString();
+            
+            query = ubicacion(ubicacion_tabla,str1,str2);
+
+            var comprobacion = 0;
+            conexion.Open();
+            SqlCommand comando = new SqlCommand(query,conexion);
+            comprobacion =comando.ExecuteNonQuery();//0 si no lo encuentra 1 si si lo encuentra
+            Console.WriteLine(comprobacion.ToString());
+            conexion.Close() ;
+        }
+
+        private string ubicacion(int ubicacion,string str1, string str2)
+        {
+            string text;
+            switch (ubicacion)
+            {
+                case 0:
+                    text = str1 + "ClientesPLatino" + str2;
+                    return text;
+                case 1:
+                    text = str1 + "ClientesNormales" + str2;
+                    return text;
+                default:
+                    throw new Exception("implementar para cuando el numero sea mayor de 1");
+            }
         }
     }
 }
