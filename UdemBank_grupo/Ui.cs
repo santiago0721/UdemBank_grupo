@@ -15,6 +15,7 @@ namespace UdemBank_grupo
         {
             banco = new UdemBank();
             this.menu();
+            banco.actualizar_administrador();
 
         }
 

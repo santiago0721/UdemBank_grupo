@@ -21,7 +21,6 @@ namespace UdemBank_grupo
             var datos_admin = base_datos.basedatosAdmin();
             admin = new Admin(datos_admin.Item1, datos_admin.Item2,datos_admin.Item3,datos_admin.Item4);
             Console.WriteLine(admin);
-            base_datos = new BaseDatos();
             lista_atms= new List<ATM>();
             creacion_atms();
 
@@ -174,6 +173,12 @@ namespace UdemBank_grupo
             base_datos.escribir_basedatos_atm(resultado.Item1,resultado.Item2);
             this.creacion_atms();
            
+        }
+
+        public void actualizar_administrador() 
+        {
+            var datos = admin.datos();
+            base_datos.actualizar_admin(datos.Item1, datos.Item2, datos.Item3, datos.Item4);
         }
         
     }

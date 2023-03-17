@@ -218,8 +218,12 @@ namespace UdemBank_grupo
             SqlCommand comando = new SqlCommand(query, conexion);
             SqlDataReader lector = comando.ExecuteReader();
             (int, string, int, int) auxiliar;
-
+            
+            
             auxiliar = (lector.GetInt32(0), lector.GetString(1), lector.GetInt32(2), lector.GetInt32(3));
+            return auxiliar;
+            
+            
 
             lector.Close();
             conexion.Close();
@@ -231,16 +235,16 @@ namespace UdemBank_grupo
         public void actualizar_admin(int id, string contraseña, int cuenta_dis, int cuenta_dis_atm) 
         {
             string str1 = "UPDATE Admin2";
-            string str2 = " SET id = @id ,contraseña = @contraseña ,balance = @balance WHERE cuenta = @cuenta";
+            string str2 = " SET contraseña = @contraseña ,cuenta_dis = @cuenta_dis ,cuenta_atm = @cuenta_atm WHERE id = @id";
             query = str1 + str2;
 
 
             conexion.Open();
             SqlCommand comando = new SqlCommand(query, conexion);
-            comando.Parameters.AddWithValue("@id", id);
             comando.Parameters.AddWithValue("@contraseña", contraseña);
-            comando.Parameters.AddWithValue("@balance", balance);
-            comando.Parameters.AddWithValue("@cuenta", cuenta);
+            comando.Parameters.AddWithValue("@cuenta_dis", cuenta_dis);
+            comando.Parameters.AddWithValue("@cuenta_atm", cuenta_dis_atm);
+            comando.Parameters.AddWithValue("@id", id);
             comando.ExecuteNonQuery();
             conexion.Close();
         }

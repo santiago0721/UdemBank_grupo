@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Deployment.Internal;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace UdemBank_grupo
         {
             numero_cuenta_disponible = num_cuenta;
             numero_cuenta_disponible_atm= num_cuenta_atm;
+        }
+
+        public (int,string,int,int) datos() 
+        {
+            return (id, contraseña, numero_cuenta_disponible, numero_cuenta_disponible_atm);
         }
 
         public Cliente crear_usuario(int id, string contraseña, int balance, int seleccion)

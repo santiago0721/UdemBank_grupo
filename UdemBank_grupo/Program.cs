@@ -11,17 +11,10 @@ namespace UdemBank_grupo
         static void Main(string[] args)
         {
             var s = new BaseDatos();
-            var k = new UdemBank();
-            /*s.eliminar(1222, 0);
-            s.escribir_basedatos(121, "aa", 32,1222,0);
-            s.escribir_basedatos(222, "bb", 32, 1231, 0);
-            s.actualizar_basedatos(121,"11",21,1222,0);
-            s.buscar(122, 0);
-            s.eliminar(122, 0);*/
-            //s.actualizar_basedatos(132, "Q1", 3, 68, 0);
-            s.leer_basedatos(0);
+
+    
             var Ui = new Ui();
-            s.leer_basedatos(0);
+            
             
             
            
