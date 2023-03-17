@@ -8,26 +8,33 @@ namespace UdemBank_grupo
 {
     internal class UdemBank
     {
-        int balance_general;
+        static int balance_general;
         List<ATM> lista_atms;
         BaseDatos base_datos;
+        Admin admin;
 
         public UdemBank() 
         {
             base_datos = new BaseDatos();
-            lista_atms= new List<ATM>();    
+            var datos_admin = base_datos.basedatosAdmin();
+            admin = new Admin(datos_admin.Item1, datos_admin.Item2,datos_admin.Item3,datos_admin.Item4);
+            Console.WriteLine(admin);
+            base_datos = new BaseDatos();
+            lista_atms= new List<ATM>();
+            creacion_atms();
+
         }
 
 
-        public void creacion_atms() 
+        public void creacion_atms() // siempre se debe llamar cuando se actualiza un atm
         {
+            lista_atms.Clear();
             var x = base_datos.leer_basedatos_atm();
             foreach((int,int) creador in x) 
             {
                 lista_atms.Add(new ATM(creador.Item1, creador.Item2));
             }
 
-            foreach(ATM atm in lista_atms) { Console.WriteLine(atm); }
         }
 
         public List<ATM> disponibilidad_lista_atms(int valor)
@@ -88,6 +95,13 @@ namespace UdemBank_grupo
             {
                 base_datos.actualizar_basedatos(datos.Item1, datos.Item2, datos.Item3, datos.Item4, 1);
             }
+        }
+
+        public void actualizar_atm(ATM atm) 
+        {
+            var datos = atm.datos();
+            base_datos.actualizar_basedatos_atm(datos.Item1,datos.Item2);
+            this.creacion_atms();
         }
 
         

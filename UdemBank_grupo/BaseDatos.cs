@@ -41,9 +41,9 @@ namespace UdemBank_grupo
 
             while (lector.Read())
             {
-
+                Console.WriteLine(lector.GetInt32(0));
                 Console.WriteLine(lector.GetString(1).ToString());
-                Console.WriteLine(lector.GetInt32(3));
+                Console.WriteLine(lector.GetInt32(2));
 
             }
 
@@ -189,6 +189,40 @@ namespace UdemBank_grupo
             comando.ExecuteNonQuery();
             conexion.Close();
 
+
+        }
+
+
+        public void actualizar_basedatos_atm(int id, double balance )
+        {
+            query = "UPDATE Atm SET balance = @balance WHERE id = @id";
+            
+
+
+            conexion.Open();
+            SqlCommand comando = new SqlCommand(query, conexion);
+            comando.Parameters.AddWithValue("@id", id);
+            comando.Parameters.AddWithValue("@balance", balance);
+            comando.ExecuteNonQuery();
+            conexion.Close();
+
+        }
+
+        public (int, string,int , int) basedatosAdmin() 
+        {
+            query = "SELECT * FROM Admin";
+
+            conexion.Open();
+
+            SqlCommand comando = new SqlCommand(query, conexion);
+            SqlDataReader lector = comando.ExecuteReader();
+            (int, string,int, int) auxiliar;
+ 
+            auxiliar = (lector.GetInt32(0),lector.GetString(1), lector.GetInt32(2), lector.GetInt32(3));
+      
+            lector.Close();
+            conexion.Close();
+            return auxiliar;
 
         }
 

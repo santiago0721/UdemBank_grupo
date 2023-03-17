@@ -21,7 +21,6 @@ namespace UdemBank_grupo
         public Cliente crear_usuario(int id, string contraseña, int balance, int seleccion)
         {
             Cliente new_client;
-            // falta implementar validador de que no exista este usuario 
             switch(seleccion)
             {
                 case 1:
@@ -37,11 +36,12 @@ namespace UdemBank_grupo
                     return new_client;
 
                 default:
-                    throw new Exception("hpta");
+                    throw new Exception("opcion invalida");
                 
                  
             }
         }
+        public int cuenta_disponilible__() { return numero_cuenta_disponible; }
 
         public ATM crear_atm(int balance) 
         {
