@@ -17,7 +17,7 @@ namespace UdemBank_grupo
             conexion_string = "server=LAPTOP-5H1A7EVN ; database=Banco ; integrated security = true";
             conexion = new SqlConnection(conexion_string);
         }
-        
+
         public void leer_basedatos(int ubicacion_tabla)
         {
             string str1 = "SELECT * FROM ";
@@ -53,9 +53,9 @@ namespace UdemBank_grupo
 
         }
 
-        public void escribir_basedatos(int id,string contraseña,int balance,int cuenta,int ubicacion_tabla)
+        public void escribir_basedatos(int id, string contraseña, int balance, int cuenta, int ubicacion_tabla)
         {
-            
+
             string str1 = "INSERT INTO ";
             string str2 = "(id,contraseña,balance,cuenta) VALUES (@id,@contraseña,@balance,@cuenta)";
 
@@ -65,10 +65,10 @@ namespace UdemBank_grupo
             SqlCommand comando = new SqlCommand(query, conexion);
             comando.Parameters.AddWithValue("@id", id);
             comando.Parameters.AddWithValue("@contraseña", contraseña);
-            comando.Parameters.AddWithValue("@balance",balance);
-            comando.Parameters.AddWithValue("@cuenta",cuenta);
+            comando.Parameters.AddWithValue("@balance", balance);
+            comando.Parameters.AddWithValue("@cuenta", cuenta);
             comando.ExecuteNonQuery();
-            conexion.Close() ;  
+            conexion.Close();
 
 
         }
@@ -90,20 +90,20 @@ namespace UdemBank_grupo
             conexion.Close();
 
         }
-        
-        public (int,string,int,int)? buscar(int cuenta,int ubicacion_tabla)
+
+        public (int, string, int, int)? buscar(int cuenta, int ubicacion_tabla)
         {
-    
+
             string str1 = "SELECT * FROM ";
             string str2 = " WHERE id LIKE '%" + cuenta.ToString() + "%'";
 
             query = ubicacion(ubicacion_tabla, str1, str2);
 
             conexion.Open();
-            SqlCommand comando = new SqlCommand(query,conexion);
+            SqlCommand comando = new SqlCommand(query, conexion);
             SqlDataReader lector = comando.ExecuteReader();
-            
-            if (lector.Read()) 
+
+            if (lector.Read())
             {
                 int id = lector.GetInt32(0);
                 string contraseña = lector.GetString(1).ToString();
@@ -111,9 +111,10 @@ namespace UdemBank_grupo
                 int cuenta_ = lector.GetInt32(3);
 
                 conexion.Close();
-                return (id,contraseña,balance, cuenta_);
+                return (id, contraseña, balance, cuenta_);
             }
-            else {
+            else
+            {
                 conexion.Close();
                 return null;
             }
@@ -124,18 +125,18 @@ namespace UdemBank_grupo
         {
             string str1 = "DELETE FROM ";
             string str2 = " WHERE cuenta = " + cuenta.ToString();
-            
-            query = ubicacion(ubicacion_tabla,str1,str2);
+
+            query = ubicacion(ubicacion_tabla, str1, str2);
 
             var comprobacion = 0;
             conexion.Open();
-            SqlCommand comando = new SqlCommand(query,conexion);
-            comprobacion =comando.ExecuteNonQuery();//0 si no lo encuentra 1 si si lo encuentra
+            SqlCommand comando = new SqlCommand(query, conexion);
+            comprobacion = comando.ExecuteNonQuery();//0 si no lo encuentra 1 si si lo encuentra
             Console.WriteLine(comprobacion.ToString());
-            conexion.Close() ;
+            conexion.Close();
         }
 
-        private string ubicacion(int ubicacion,string str1, string str2)
+        private string ubicacion(int ubicacion, string str1, string str2)
         {
             string text;
             switch (ubicacion)
@@ -154,11 +155,11 @@ namespace UdemBank_grupo
 
 
         // ATM
-        public List<(int,int)> leer_basedatos_atm()
+        public List<(int, int)> leer_basedatos_atm()
         {
-            List<(int,int)> auxiliar = new List<(int,int)> ();  
+            List<(int, int)> auxiliar = new List<(int, int)>();
             query = "SELECT * FROM Atm";
-    
+
             conexion.Open();
 
             SqlCommand comando = new SqlCommand(query, conexion);
@@ -167,7 +168,7 @@ namespace UdemBank_grupo
             while (lector.Read())
             {
 
-                auxiliar.Add((lector.GetInt32(0),lector.GetInt32(1)));
+                auxiliar.Add((lector.GetInt32(0), lector.GetInt32(1)));
 
             }
 
@@ -180,7 +181,7 @@ namespace UdemBank_grupo
         public void escribir_basedatos_atm(int id, double balance)
         {
 
-            query = "INSERT INTO Atm (id,balance) VALUES (@id,@balance)";    
+            query = "INSERT INTO Atm (id,balance) VALUES (@id,@balance)";
 
             conexion.Open();
             SqlCommand comando = new SqlCommand(query, conexion);
@@ -193,10 +194,10 @@ namespace UdemBank_grupo
         }
 
 
-        public void actualizar_basedatos_atm(int id, double balance )
+        public void actualizar_basedatos_atm(int id, double balance)
         {
             query = "UPDATE Atm SET balance = @balance WHERE id = @id";
-            
+
 
 
             conexion.Open();
@@ -208,7 +209,7 @@ namespace UdemBank_grupo
 
         }
 
-        public (int, string,int , int) basedatosAdmin() 
+        public (int, string, int, int) basedatosAdmin()
         {
             query = "SELECT * FROM Admin";
 
@@ -216,15 +217,41 @@ namespace UdemBank_grupo
 
             SqlCommand comando = new SqlCommand(query, conexion);
             SqlDataReader lector = comando.ExecuteReader();
-            (int, string,int, int) auxiliar;
- 
-            auxiliar = (lector.GetInt32(0),lector.GetString(1), lector.GetInt32(2), lector.GetInt32(3));
-      
+            (int, string, int, int) auxiliar;
+
+            auxiliar = (lector.GetInt32(0), lector.GetString(1), lector.GetInt32(2), lector.GetInt32(3));
+
             lector.Close();
             conexion.Close();
             return auxiliar;
 
         }
 
+        public bool buscar_atm(int id_)
+        {
+
+            string str1 = "SELECT * FROM Atm";
+            string str2 = " WHERE id LIKE '%" + id_.ToString() + "%'";
+
+            query = str1 + str2;
+
+            conexion.Open();
+            SqlCommand comando = new SqlCommand(query, conexion);
+            SqlDataReader lector = comando.ExecuteReader();
+
+            if (lector.Read())
+            {
+
+
+                conexion.Close();
+                return true;
+            }
+            else
+            {
+                conexion.Close();
+                return false;
+            }
+
+        }
     }
 }
