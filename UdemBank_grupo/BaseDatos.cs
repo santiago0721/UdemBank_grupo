@@ -211,7 +211,7 @@ namespace UdemBank_grupo
 
         public (int, string, int, int) basedatosAdmin()
         {
-            query = "SELECT * FROM Admin";
+            query = "SELECT * FROM Admin2";
 
             conexion.Open();
 
@@ -225,6 +225,24 @@ namespace UdemBank_grupo
             conexion.Close();
             return auxiliar;
 
+        }
+
+
+        public void actualizar_admin(int id, string contraseña, int cuenta_dis, int cuenta_dis_atm) 
+        {
+            string str1 = "UPDATE Admin2";
+            string str2 = " SET id = @id ,contraseña = @contraseña ,balance = @balance WHERE cuenta = @cuenta";
+            query = str1 + str2;
+
+
+            conexion.Open();
+            SqlCommand comando = new SqlCommand(query, conexion);
+            comando.Parameters.AddWithValue("@id", id);
+            comando.Parameters.AddWithValue("@contraseña", contraseña);
+            comando.Parameters.AddWithValue("@balance", balance);
+            comando.Parameters.AddWithValue("@cuenta", cuenta);
+            comando.ExecuteNonQuery();
+            conexion.Close();
         }
 
         public bool buscar_atm(int id_)

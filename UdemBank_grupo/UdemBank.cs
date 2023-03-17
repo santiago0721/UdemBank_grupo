@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace UdemBank_grupo
         BaseDatos base_datos;
         Admin admin;
 
+
         public UdemBank() 
         {
             base_datos = new BaseDatos();
@@ -24,7 +26,8 @@ namespace UdemBank_grupo
             creacion_atms();
 
         }
-
+        
+        public Admin devolver_admin() {return admin;}
 
         public void creacion_atms() // siempre se debe llamar cuando se actualiza un atm
         {
@@ -59,12 +62,12 @@ namespace UdemBank_grupo
 
         }
 
-        public Cliente buscar(int id) 
+        public Cliente buscar(int cuenta) 
         {
-            var buscar_cliente = base_datos.buscar(id, 0);
+            var buscar_cliente = base_datos.buscar(cuenta, 0);
             if ( buscar_cliente is null) 
             {
-                buscar_cliente = base_datos.buscar(id, 1);
+                buscar_cliente = base_datos.buscar(cuenta, 1);
                 if (buscar_cliente is null)
 
                     
@@ -104,6 +107,74 @@ namespace UdemBank_grupo
             this.creacion_atms();
         }
 
+        public bool crear_usuario(int id_,string contraseña_,int balance_, int cuenta_,int tablabd) //organizar
+        {
+            admin.crear_usuario(id_, contraseña_, balance_, tablabd);
+            if (base_datos.buscar(cuenta_,tablabd) is null) {return false;} 
+            
+            else 
+            {
+                Cliente cliente = admin.crear_usuario(id_, contraseña_, balance_, tablabd);
+                base_datos.escribir_basedatos(id_, contraseña_, balance_, cliente.numero_cuenta_(), tablabd);
+                return true;
+            }
+            
+        }
+
+        public bool eliminar_usuario(int cuenta) 
+        {
+            if (base_datos.buscar(cuenta,0) is null) 
+            {
+                if (base_datos.buscar(cuenta,1) is null) 
+                {  
+                    return false;
+                }
+                else 
+                {
+                    base_datos.eliminar(cuenta,1);
+                    return true;
+                }
+            }
+            else 
+            {
+                base_datos.eliminar(cuenta, 0);
+                return true;
+            }
+        }
+
+        public bool modificar(int id,string contraseña,int balance, int cuenta) 
+        {
+            if (base_datos.buscar(cuenta, 0) is null)
+            {
+                if (base_datos.buscar(cuenta, 1) is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    base_datos.actualizar_basedatos(id,contraseña,balance,cuenta, 1);
+                    return true;
+                }
+            }
+            else
+            {
+                base_datos.actualizar_basedatos(id, contraseña, balance, cuenta, 0);
+                return true;
+            }
+        }
+
+
+        public List<ATM> devolver_lista() { return lista_atms; }
+
+        public void crear_atm(int balance) 
+        {
+            
+            var s = admin.crear_atm(balance);
+            (int, double) resultado = s.datos(); 
+            base_datos.escribir_basedatos_atm(resultado.Item1,resultado.Item2);
+            this.creacion_atms();
+           
+        }
         
     }
 }

@@ -44,7 +44,14 @@ namespace UdemBank_grupo
             else if (seleccion == "2")
             {
                 var inicio_sesion = this.menu_inicial();
-                
+                Admin admin = banco.devolver_admin();
+                if (admin.iniciar_sesion(inicio_sesion.Item1, inicio_sesion.Item2)) 
+                {
+                    this.menu_admin(admin);
+                }
+                else { Console.WriteLine("ingreso algun dato mal"); this.menu(); }
+
+
             }
             else if (seleccion == "3") { }
             else
@@ -69,7 +76,7 @@ namespace UdemBank_grupo
         private void menu_cliente(Cliente cliente) 
         {
 
-            Console.WriteLine("BIENBENIDO\n" +
+            Console.WriteLine("BIENVENIDO\n" +
                 "[1] depositar\n" +
                 "[2] retirar en atm\n" +
                 "[3] retirar en sucursal virtual\n" +
@@ -97,6 +104,60 @@ namespace UdemBank_grupo
                     break;
             }
         
+        }
+
+        public void menu_admin(Admin admin) 
+        {
+            Console.WriteLine("BIENVENIDO\n" +
+                "[1] Crear cliente\n" +
+                "[2] eliminar usuario\n" +
+                "[3] modificar usuario\n" +
+                "[4] crear atm\n");//falta
+
+            string opcion = Console.ReadLine();
+
+            switch (opcion)
+            {
+                case "1":
+                    var d_nuevo_u = crear_usuario(admin);
+                    var x = banco.crear_usuario(d_nuevo_u.Item1, d_nuevo_u.Item2, d_nuevo_u.Item3, d_nuevo_u.Item4,d_nuevo_u.Item5);
+                    if (x) { Console.WriteLine("usuario creado"); }
+                    else { Console.WriteLine("usuario ya existente"); }
+                    Console.Read();
+                    break;
+                case "2":
+                    Console.WriteLine("ingrese cuenta que desea eliminar");
+                    int cuenta = int.Parse(Console.ReadLine());
+                    if (banco.eliminar_usuario(cuenta)) { Console.WriteLine("cuenta eliminada"); }
+                    else { Console.WriteLine("no se pudo hacer esto ya que no existe esta cuenta"); }
+                    Console.Read();
+                    break;
+                case "3":
+                    var actualizar = this.actualizar();
+                    if (banco.modificar(actualizar.Item1, actualizar.Item2, actualizar.Item3, actualizar.Item4))
+                        {
+                        Console.WriteLine("se actualizo el usuario");
+                        }
+                    else { Console.WriteLine("no existe el usuario"); }
+                    
+                    Console.Read();
+                    break;
+                case "4":
+                    Console.WriteLine("ingrese balance");
+                    int balance = int.Parse(Console.ReadLine());
+                    banco.crear_atm(balance);
+
+                    Console.WriteLine("se creo correctamente");
+                    Console.ReadLine();
+                    
+                    break;
+
+
+                default:
+                    Console.WriteLine("opcion incorrecta ");
+                    this.menu_admin(admin);
+                    break;
+            }
         }
 
         private void depositar(Cliente cliente) 
@@ -129,7 +190,36 @@ namespace UdemBank_grupo
             }
 
         }
+
+
+        public (int, string, int, int,int) crear_usuario(Admin admin)
+        {
+            Console.WriteLine("ingrese id");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine("ingrese contraseña");
+            string contraseña = Console.ReadLine();
+            Console.WriteLine("ingrese balance");
+            int balance = int.Parse(Console.ReadLine());
+            int cuenta = admin.cuenta_disponilible__();
+            int tabla = int.Parse(Console.ReadLine());
+            return (id, contraseña, balance, cuenta,tabla) ;//ingrese tabla
+        }
+
+        public (int, string, int, int) actualizar ()
+        {
+            Console.WriteLine("ingrese id");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine("ingrese contraseña");
+            string contraseña = Console.ReadLine();
+            Console.WriteLine("ingrese balance");
+            int balance = int.Parse(Console.ReadLine());
+            Console.WriteLine("ingrese balance");
+            int cuenta = int.Parse(Console.ReadLine());
+            return (id, contraseña, balance, cuenta);
+        }
     }
+
+    
 
 }
 

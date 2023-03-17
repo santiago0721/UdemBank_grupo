@@ -51,6 +51,7 @@ namespace UdemBank_grupo
 
         }
 
+
         public Cliente actualizar_usuario(int id, string contraseña, int balance, int numero_cuenta,Cliente cliente) 
         {
             cliente.actualizar_datos(id,contraseña,balance,numero_cuenta);
