@@ -24,10 +24,7 @@ namespace UdemBank_grupo
             Console.WriteLine(this.contraseña);
             Console.WriteLine(id);
             Console.WriteLine(contraseña);
-            if ((this.id == id) & (this.contraseña == contraseña)) {
-                Console.WriteLine("siiiiii");
-                Console.Read();
-                return true; }
+            if ((this.id == id) & (this.contraseña == contraseña)) { return true; }
             else{ return false; }  
         }
 

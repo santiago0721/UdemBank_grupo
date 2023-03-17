@@ -64,6 +64,15 @@ namespace UdemBank_grupo
             }
         }
 
+
+        public void actualizar_cliente(Cliente cliente)
+        {
+            if (cliente is ClientePlatino) 
+            {
+                base_datos.actualizar_basedatos()
+            }
+        }
+
         
     }
 }

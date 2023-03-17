@@ -77,18 +77,7 @@ namespace UdemBank_grupo
         {
             string str1 = "UPDATE ";
             string str2 = " SET id = @id ,contraseña = @contraseña ,balance = @balance WHERE cuenta = @cuenta";
-            switch (ubicacion_tabla)
-            {
-                case 0:
-                    query = str1 + "ClientesPLatino" + str2;
-                    break;
-                case 1:
-                    query = str1 + "ClientesNormales" + str2;
-                    break;
-                default:
-                    throw new Exception("implementar para cuando el numero sea mayor de 1");
-            }
-
+            query = ubicacion(ubicacion_tabla, str1, str2);
 
 
             conexion.Open();
