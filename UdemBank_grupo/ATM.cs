@@ -38,7 +38,15 @@ namespace UdemBank_grupo
 
         public override (Sucursal, int) retirar(int valor)
         {
-            return (this, valor);//no implementado
+            if (this.disponibilidad_retiro(valor))
+            {
+                balance -= valor;
+                return (this, valor);
+            }
+            else
+            {
+                throw new Exception("Falta");
+            }
         }
 
     }

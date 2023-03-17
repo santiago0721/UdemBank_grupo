@@ -54,6 +54,7 @@
     <Compile Include="Sucursal.cs" />
     <Compile Include="SucursalVirtual.cs" />
     <Compile Include="UdemBank.cs" />
+    <Compile Include="Ui.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>

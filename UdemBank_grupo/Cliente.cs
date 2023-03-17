@@ -42,5 +42,16 @@ namespace UdemBank_grupo
             this.numero_cuenta= numero_cuenta_;
         }
 
+        public Cliente sumar_al_balance_cliente(int valor)
+        {
+            balance += valor - cobro * valor;
+            return this;
+        }
+
+        public Cliente restar_al_balance_cliente(int valor)
+        {
+            balance -= valor + cobro * valor;
+            return this;
+        }
     }
 }

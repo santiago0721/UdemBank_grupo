@@ -102,25 +102,32 @@ namespace UdemBank_grupo
 
         }
         
-        public void buscar(int cuenta,int ubicacion_tabla)
+        public (int,string,int,int)? buscar(int cuenta,int ubicacion_tabla)
         {
     
             string str1 = "SELECT * FROM ";
-            string str2 = " WHERE cuenta LIKE '%" + cuenta.ToString() + "%'";
+            string str2 = " WHERE id LIKE '%" + cuenta.ToString() + "%'";
 
             query = ubicacion(ubicacion_tabla, str1, str2);
 
             conexion.Open();
             SqlCommand comando = new SqlCommand(query,conexion);
-            SqlDataReader lector = comando.ExecuteReader(); 
+            SqlDataReader lector = comando.ExecuteReader();
             
             if (lector.Read()) 
             {
-                Console.WriteLine(lector.GetString(1).ToString());
+                int id = lector.GetInt32(0);
+                string contraseña = lector.GetString(1).ToString();
+                int balance = lector.GetInt32(2);
+                int cuenta_ = lector.GetInt32(3);
+
+                conexion.Close();
+                return (id,contraseña,balance, cuenta_);
             }
-            else { Console.WriteLine("poner false"); }
-       
-            conexion.Close();
+            else {
+                conexion.Close();
+                return null;
+            }
 
         }
 

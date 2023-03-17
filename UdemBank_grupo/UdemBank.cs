@@ -10,11 +10,12 @@ namespace UdemBank_grupo
     {
         int balance_general;
         List<ATM> lista_atms;
+        BaseDatos base_datos;
 
-        public UdemBank(int balance,List<ATM> atms) 
+        public UdemBank() 
         {
-            this.balance_general = balance;
-            this.lista_atms = atms;
+            base_datos = new BaseDatos();
+            lista_atms= new List<ATM>();    
         }
 
         public List<ATM> disponibilidad_lista_atms(int valor)
@@ -38,5 +39,31 @@ namespace UdemBank_grupo
             }
 
         }
+
+        public Cliente buscar(int id) 
+        {
+            var buscar_cliente = base_datos.buscar(id, 0);
+            if ( buscar_cliente is null) 
+            {
+                buscar_cliente = base_datos.buscar(id, 1);
+                if (buscar_cliente is null)
+
+                    
+                    { return null ; }
+
+                else 
+                {
+                    Cliente cliente = new ClienteRegular(buscar_cliente.Value.Item1, buscar_cliente.Value.Item2, buscar_cliente.Value.Item3, buscar_cliente.Value.Item4);
+                    return cliente;
+                }
+            }
+            else
+            {
+                Cliente cliente = new ClientePlatino(buscar_cliente.Value.Item1, buscar_cliente.Value.Item2, buscar_cliente.Value.Item3, buscar_cliente.Value.Item4);
+                return cliente ;
+            }
+        }
+
+        
     }
 }

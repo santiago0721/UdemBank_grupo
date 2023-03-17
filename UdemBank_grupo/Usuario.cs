@@ -20,7 +20,14 @@ namespace UdemBank_grupo
 
         public bool iniciar_sesion(int id,string contraseña)
         {
-            if ((this.id == id) & (this.contraseña == contraseña)) { return true; }
+            Console.WriteLine(this.id);
+            Console.WriteLine(this.contraseña);
+            Console.WriteLine(id);
+            Console.WriteLine(contraseña);
+            if ((this.id == id) & (this.contraseña == contraseña)) {
+                Console.WriteLine("siiiiii");
+                Console.Read();
+                return true; }
             else{ return false; }  
         }
 
