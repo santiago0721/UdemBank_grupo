@@ -30,10 +30,10 @@ namespace UdemBank_grupo
         }
 
 
-        public override (Sucursal, int) depositar(int valor)
+        public override void depositar(int valor)
         {
             balance += valor;
-            return (this, valor);
+            
         }
 
         public override (Sucursal, int) retirar(int valor)
@@ -48,6 +48,9 @@ namespace UdemBank_grupo
                 throw new Exception("Falta");
             }
         }
+
+        public (int,double) datos() 
+        { return (this.id, this.balance); }
 
     }
 }

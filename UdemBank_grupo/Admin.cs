@@ -27,13 +27,13 @@ namespace UdemBank_grupo
                 case 1:
                     
                     new_client = new ClienteRegular(id, contraseña, balance, numero_cuenta_disponible);
-                    numero_cuenta_disponible+= 1;
+                    numero_cuenta_disponible-= 1;
                     return new_client;
 
                 case 2:
 
                     new_client = new ClientePlatino(id, contraseña, balance, numero_cuenta_disponible);
-                    numero_cuenta_disponible+= 1;
+                    numero_cuenta_disponible-= 1;
                     return new_client;
 
                 default:

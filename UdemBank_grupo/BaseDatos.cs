@@ -73,7 +73,7 @@ namespace UdemBank_grupo
 
         }
 
-        public void actualizar_basedatos(int id, string contraseña, int balance, int cuenta, int ubicacion_tabla)
+        public void actualizar_basedatos(int id, string contraseña, double balance, int cuenta, int ubicacion_tabla)
         {
             string str1 = "UPDATE ";
             string str2 = " SET id = @id ,contraseña = @contraseña ,balance = @balance WHERE cuenta = @cuenta";
@@ -150,5 +150,47 @@ namespace UdemBank_grupo
                     throw new Exception("implementar para cuando el numero sea mayor de 1");
             }
         }
+
+
+
+        // ATM
+        public List<(int,int)> leer_basedatos_atm()
+        {
+            List<(int,int)> auxiliar = new List<(int,int)> ();  
+            query = "SELECT * FROM Atm";
+    
+            conexion.Open();
+
+            SqlCommand comando = new SqlCommand(query, conexion);
+            SqlDataReader lector = comando.ExecuteReader();
+
+            while (lector.Read())
+            {
+
+                auxiliar.Add((lector.GetInt32(0),lector.GetInt32(1)));
+
+            }
+
+            lector.Close();
+            conexion.Close();
+            return auxiliar;
+
+        }
+
+        public void escribir_basedatos_atm(int id, double balance)
+        {
+
+            query = "INSERT INTO Atm (id,balance) VALUES (@id,@balance)";    
+
+            conexion.Open();
+            SqlCommand comando = new SqlCommand(query, conexion);
+            comando.Parameters.AddWithValue("@id", id);
+            comando.Parameters.AddWithValue("@balance", balance);
+            comando.ExecuteNonQuery();
+            conexion.Close();
+
+
+        }
+
     }
 }

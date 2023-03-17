@@ -10,7 +10,7 @@ namespace UdemBank_grupo
     {
         public abstract bool disponibilidad_retiro(int valor);
 
-        public abstract (Sucursal, int) depositar(int valor);
+        public abstract void depositar(int valor);
 
         public abstract (Sucursal, int) retirar(int valor);
     }

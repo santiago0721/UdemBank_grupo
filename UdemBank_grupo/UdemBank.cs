@@ -18,6 +18,18 @@ namespace UdemBank_grupo
             lista_atms= new List<ATM>();    
         }
 
+
+        public void creacion_atms() 
+        {
+            var x = base_datos.leer_basedatos_atm();
+            foreach((int,int) creador in x) 
+            {
+                lista_atms.Add(new ATM(creador.Item1, creador.Item2));
+            }
+
+            foreach(ATM atm in lista_atms) { Console.WriteLine(atm); }
+        }
+
         public List<ATM> disponibilidad_lista_atms(int valor)
         {
             List<ATM> lista_ = new List<ATM>();
@@ -67,9 +79,14 @@ namespace UdemBank_grupo
 
         public void actualizar_cliente(Cliente cliente)
         {
+            var datos = cliente.datos();
             if (cliente is ClientePlatino) 
             {
-                base_datos.actualizar_basedatos()
+                base_datos.actualizar_basedatos(datos.Item1, datos.Item2, datos.Item3, datos.Item4, 0);
+            }
+            else 
+            {
+                base_datos.actualizar_basedatos(datos.Item1, datos.Item2, datos.Item3, datos.Item4, 1);
             }
         }
 

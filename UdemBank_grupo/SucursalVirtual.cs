@@ -10,9 +10,7 @@ namespace UdemBank_grupo
     {
         public override bool disponibilidad_retiro(int valor) { return true;  }
 
-        public override (Sucursal, int) depositar(int valor) {
-            return (this, valor);
-        }
+        public override void depositar(int valor) {}
 
         public override (Sucursal, int) retirar(int valor) { return (this, valor); }
     }

@@ -53,5 +53,10 @@ namespace UdemBank_grupo
             balance -= valor + cobro * valor;
             return this;
         }
+
+        public (int,string,double,int) datos() 
+        {
+            return (id, contraseña, balance, numero_cuenta);
+        }
     }
 }
